@@ -2399,8 +2399,35 @@ body.haj-mode .inquiry-dialog{border-top:5px solid #d7aa42;}
   border-radius: 999px;
 }
 
-.mobile-live-hero {
+.mobile-static-hero {
   display: none;
+}
+
+.mobile-static-hero > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.mobile-quote-hotspot {
+  left: 10%;
+  top: 35.1%;
+  width: 76.4%;
+  height: 4.7%;
+}
+
+.mobile-packages-hotspot {
+  left: 10%;
+  top: 40.7%;
+  width: 76.4%;
+  height: 4.7%;
+}
+
+.mobile-haj-hotspot {
+  left: 25%;
+  top: 92.1%;
+  width: 51.2%;
+  height: 4.7%;
 }
 
 #toursPanel .static-image-hero + .stats-section {
@@ -2414,23 +2441,22 @@ body.haj-mode .inquiry-dialog{border-top:5px solid #d7aa42;}
 
   .static-image-hero {
     min-height: auto;
-    display: flex;
-    align-items: center;
-    color: var(--white);
-    background:
-      linear-gradient(135deg, rgba(8, 29, 63, 0.94), rgba(22, 58, 111, 0.9)),
-      url("../assets/dubai.jpg") center/cover no-repeat;
+    display: block;
+    background: #f8f8f6;
   }
 
   .static-image-hero::before {
-    display: block;
+    display: none;
   }
 
-  .mobile-live-hero {
+  .mobile-static-hero {
+    position: relative;
     display: block;
+    width: 100%;
+    line-height: 0;
   }
 
   #toursPanel .static-image-hero + .stats-section {
-    margin-top: -34px;
+    margin-top: 0 !important;
   }
 }
