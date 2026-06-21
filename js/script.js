@@ -146,175 +146,58 @@ const packages = [
   },
 ];
 
-const heroDestinations = [
-  {
-    name: "Dubai",
-    image: "assets/dubai.jpg",
-    kicker: "Featured international journey",
-    headline: "Dubai,",
-    accent: "Designed Around You",
-    copy: "Customised Dubai travel support for families, groups and leisure travellers.",
-  },
-  {
-    name: "Turkey",
-    image: "assets/turkey.webp",
-    kicker: "Culture and landscapes",
-    headline: "Where History Meets",
-    accent: "The Horizon",
-    copy: "Historic cities, scenic views and cultural journeys planned around your travel style.",
-  },
-  {
-    name: "Singapore",
-    image: "assets/singapore.jpg",
-    kicker: "Modern city escape",
-    headline: "Experience The City",
-    accent: "Of Tomorrow",
-    copy: "Modern attractions, family experiences and effortless sightseeing in one memorable trip.",
-  },
-  {
-    name: "Kashmir",
-    image: "assets/kashmir.jpg",
-    kicker: "Featured domestic journey",
-    headline: "Discover Heaven",
-    accent: "Closer To Home",
-    copy: "Mountains, gardens, valleys and peaceful local experiences for families and groups.",
-  },
-  {
-    name: "Maldives",
-    image: "assets/maldives.jpg",
-    kicker: "Private island escape",
-    headline: "Find Your Escape",
-    accent: "In Paradise",
-    copy: "Resort, honeymoon and family island journeys with stays shaped around your comfort.",
-  },
+const windowDestinations = [
+  { name: "Dubai", image: "assets/dubai.jpg" },
+  { name: "Turkey", image: "assets/turkey.webp" },
+  { name: "Singapore", image: "assets/singapore.jpg" },
+  { name: "Kashmir", image: "assets/kashmir.jpg" },
+  { name: "Maldives", image: "assets/maldives.jpg" },
 ];
 
-function setupDestinationJourney() {
-  const stage = document.querySelector(".destination-index");
-  const content = document.querySelector(".tours-hero .hero-content");
-  const layerA = document.getElementById("destinationLayerA");
-  const layerB = document.getElementById("destinationLayerB");
-  const nav = document.getElementById("destinationNav");
-  const kicker = document.getElementById("destinationKicker");
-  const headline = document.getElementById("destinationHeadline");
-  const copy = document.getElementById("destinationCopy");
-  const packageLink = document.getElementById("destinationPackageLink");
+function setupFixedWindowHero() {
+  const scene = document.querySelector(".fixed-window-scene");
+  const layerA = document.getElementById("windowPhotoA");
+  const layerB = document.getElementById("windowPhotoB");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  if (!stage || !content || !layerA || !layerB || !nav || !kicker || !headline || !copy || !packageLink) return;
+  if (!scene || !layerA || !layerB) return;
+
+  windowDestinations.forEach((destination) => {
+    const image = new Image();
+    image.src = destination.image;
+  });
 
   let activeIndex = 0;
   let activeLayer = layerA;
   let waitingLayer = layerB;
-  let userPaused = false;
   let rotationTimer;
-  let transitionTimer;
 
-  nav.innerHTML = heroDestinations
-    .map((destination, index) => `
-      <button
-        class="destination-choice${index === 0 ? " active" : ""}"
-        type="button"
-        data-destination-index="${index}"
-        aria-label="Show ${destination.name}"
-        aria-pressed="${index === 0 ? "true" : "false"}"
-      ><span>${String(index + 1).padStart(2, "0")}</span>${destination.name}</button>
-    `)
-    .join("") + '<button class="journey-toggle" type="button" aria-label="Pause automatic destinations">Pause rotation</button>';
+  activeLayer.style.backgroundImage = `url("${windowDestinations[0].image}")`;
+  scene.setAttribute("aria-label", `${windowDestinations[0].name} seen through an aircraft window`);
 
-  const updateContent = (destination) => {
-    kicker.textContent = destination.kicker;
-    headline.textContent = destination.headline + " ";
-
-    const accent = document.createElement("span");
-    accent.textContent = destination.accent;
-    headline.appendChild(accent);
-
-    copy.textContent = destination.copy;
-    packageLink.textContent = `Explore ${destination.name}`;
-    packageLink.href = whatsappLink(`Hello Design Tours and Travels,\nI want details for the ${destination.name} Tour Package.\n\nNo. of travellers: \nPreferred travel month: \nDeparture city: \nBudget range: \n\nPlease share suitable package options and contact-for-price details.`);
-    packageLink.target = "_blank";
-    packageLink.rel = "noopener";
-    packageLink.dataset.directWhatsapp = "true";
-  };
-
-  const updateChoices = () => {
-    nav.querySelectorAll(".destination-choice").forEach((choice, index) => {
-      const isActive = index === activeIndex;
-      choice.classList.toggle("active", isActive);
-      choice.setAttribute("aria-pressed", String(isActive));
-    });
-  };
-
-  const updateBackdrop = (destination, immediate) => {
-    if (immediate) {
-      activeLayer.style.backgroundImage = `url("${destination.image}")`;
-      activeLayer.classList.add("active");
-      return;
-    }
+  const showNextDestination = () => {
+    activeIndex = (activeIndex + 1) % windowDestinations.length;
+    const destination = windowDestinations[activeIndex];
 
     waitingLayer.style.backgroundImage = `url("${destination.image}")`;
     waitingLayer.classList.add("active");
     activeLayer.classList.remove("active");
     [activeLayer, waitingLayer] = [waitingLayer, activeLayer];
-  };
-
-  const showDestination = (nextIndex, immediate = false) => {
-    activeIndex = (nextIndex + heroDestinations.length) % heroDestinations.length;
-    window.clearTimeout(transitionTimer);
-
-    if (immediate || reduceMotion) {
-      updateBackdrop(heroDestinations[activeIndex], true);
-      updateContent(heroDestinations[activeIndex]);
-      updateChoices();
-      return;
-    }
-
-    content.classList.add("is-updating");
-    updateBackdrop(heroDestinations[activeIndex], false);
-    transitionTimer = window.setTimeout(() => {
-      updateContent(heroDestinations[activeIndex]);
-      updateChoices();
-      content.classList.remove("is-updating");
-    }, 320);
+    scene.setAttribute("aria-label", `${destination.name} seen through an aircraft window`);
   };
 
   const stopRotation = () => window.clearInterval(rotationTimer);
   const startRotation = () => {
-    if (reduceMotion || userPaused) return;
+    if (reduceMotion) return;
     stopRotation();
-    rotationTimer = window.setInterval(() => showDestination(activeIndex + 1), 6500);
+    rotationTimer = window.setInterval(showNextDestination, 5500);
   };
 
-  nav.addEventListener("click", (event) => {
-    const toggle = event.target.closest(".journey-toggle");
-    if (toggle) {
-      userPaused = !userPaused;
-      toggle.textContent = userPaused ? "Play rotation" : "Pause rotation";
-      toggle.setAttribute("aria-label", userPaused ? "Play automatic destinations" : "Pause automatic destinations");
-      toggle.title = userPaused ? "Play automatic destinations" : "Pause automatic destinations";
-      if (userPaused) stopRotation();
-      else startRotation();
-      return;
-    }
-
-    const button = event.target.closest("[data-destination-index]");
-    if (!button) return;
-    showDestination(Number(button.dataset.destinationIndex));
-    startRotation();
-  });
-
-  stage.addEventListener("mouseenter", stopRotation);
-  stage.addEventListener("mouseleave", startRotation);
-  stage.addEventListener("focusin", stopRotation);
-  stage.addEventListener("focusout", startRotation);
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) stopRotation();
     else startRotation();
   });
 
-  layerA.style.backgroundImage = `url("${heroDestinations[0].image}")`;
-  showDestination(0, true);
   startRotation();
 }
 
@@ -518,7 +401,7 @@ setupMobileMenu();
 setupLoader();
 setupEnquiryForm();
 setupQuickTripEnquiry();
-setupDestinationJourney();
+setupFixedWindowHero();
 
 window.addEventListener("scroll", observeReveal);
 observeReveal();
