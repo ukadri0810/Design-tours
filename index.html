@@ -25,6 +25,12 @@
 </div>
 </div>
 </div>
+<div aria-hidden="true" class="hero-intro" id="heroIntro">
+<video class="hero-intro-video" id="heroIntroVideo" muted playsinline preload="auto" poster="assets/hero-transition-poster.jpg">
+<source src="assets/hero-transition-dubai.mp4" type="video/mp4"/>
+</video>
+<button class="hero-intro-skip" id="heroIntroSkip" type="button">Skip animation</button>
+</div>
 <header class="site-header">
 <div class="container">
 <div class="header-inner">
@@ -55,25 +61,28 @@
 <main>
 <section class="mode-panel active" id="toursPanel">
 <section class="hero tours-hero" id="home">
-<div class="container fixed-hero-shell">
+<div aria-hidden="true" class="destination-backdrop">
+<div class="destination-layer active" id="destinationLayerA"></div>
+<div class="destination-layer" id="destinationLayerB"></div>
+<div class="destination-overlay"></div>
+</div>
+<div class="container hero-shell">
 <div class="hero-grid">
 <div class="hero-content reveal">
 <div class="hero-badge">Mumbra | Thane | Maharashtra</div>
-<h1>We Design Your <span>Safe &amp; Beautiful</span> Travel</h1>
-<p>
-              Your trusted travel partner for flights, holidays, visa assistance and customised domestic and international tour packages.
+<div class="destination-kicker" id="destinationKicker">Featured international journey</div>
+<h1 id="destinationHeadline">Dubai, <span>Designed Around You</span></h1>
+<p id="destinationCopy">
+              Customised Dubai travel support for families, groups and leisure travellers.
             </p>
 <div class="hero-buttons">
-<a class="btn btn-gold" href="#contact">Get Free Quote</a>
-<a class="btn btn-white" href="#packages">View Tour Packages</a>
-<button class="btn btn-outline" data-mode="haj" type="button">Umrah &amp; Haj Packages</button>
+<a class="btn btn-gold destination-package-link" id="destinationPackageLink" href="#packages">Get Package Details</a>
+<a class="btn btn-outline" href="#packages">Explore More Tours</a>
 </div>
 </div>
-<div class="fixed-window-scene reveal" role="img" aria-label="Destination view through an aircraft window">
-<div aria-hidden="true" class="cabin-panel"></div>
-<div aria-hidden="true" class="window-photo window-photo-a active" id="windowPhotoA"></div>
-<div aria-hidden="true" class="window-photo window-photo-b" id="windowPhotoB"></div>
-<img alt="" aria-hidden="true" class="aircraft-window-overlay" src="assets/aircraft-window-overlay.png"/>
+<div class="destination-index reveal" hidden>
+<span class="destination-index-label">Selected journeys</span>
+<div aria-label="Choose a destination" class="destination-nav" id="destinationNav"></div>
 </div>
 </div>
 <div class="quick-card reveal">
