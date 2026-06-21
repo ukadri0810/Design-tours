@@ -25,12 +25,6 @@
 </div>
 </div>
 </div>
-<div aria-hidden="true" class="hero-intro" id="heroIntro">
-<video class="hero-intro-video" id="heroIntroVideo" muted playsinline preload="auto" poster="assets/hero-transition-poster.jpg">
-<source src="assets/hero-transition-dubai.mp4" type="video/mp4"/>
-</video>
-<button class="hero-intro-skip" id="heroIntroSkip" type="button">Skip animation</button>
-</div>
 <header class="site-header">
 <div class="container">
 <div class="header-inner">
@@ -60,29 +54,26 @@
 </header>
 <main>
 <section class="mode-panel active" id="toursPanel">
-<section class="hero tours-hero" id="home">
-<div aria-hidden="true" class="destination-backdrop">
-<div class="destination-layer active" id="destinationLayerA"></div>
-<div class="destination-layer" id="destinationLayerB"></div>
-<div class="destination-overlay"></div>
+<section class="hero tours-hero static-image-hero" id="home">
+<div class="desktop-static-hero">
+<img alt="Design Tours and Travels hero featuring a Dubai view through an aircraft window" src="assets/hero-aircraft-dubai.webp"/>
+<a aria-label="Get a free quote" class="hero-image-hotspot hero-quote-hotspot" href="#contact"></a>
+<a aria-label="View tour packages" class="hero-image-hotspot hero-packages-hotspot" href="#packages"></a>
+<button aria-label="View Umrah and Haj packages" class="hero-image-hotspot hero-haj-hotspot" data-mode="haj" type="button"></button>
+<a aria-label="Scroll to tour packages" class="hero-image-hotspot hero-scroll-hotspot" href="#packages"></a>
 </div>
-<div class="container hero-shell">
+<div class="container mobile-live-hero">
 <div class="hero-grid">
 <div class="hero-content reveal">
 <div class="hero-badge">Mumbra | Thane | Maharashtra</div>
-<div class="destination-kicker" id="destinationKicker">Featured international journey</div>
-<h1 id="destinationHeadline">Dubai, <span>Designed Around You</span></h1>
-<p id="destinationCopy">
-              Customised Dubai travel support for families, groups and leisure travellers.
+<h1>We Design Your <span>Safe &amp; Beautiful</span> Travel</h1>
+<p>
+              Your trusted travel partner for flights, holidays, visa assistance and customised domestic and international tour packages.
             </p>
 <div class="hero-buttons">
-<a class="btn btn-gold destination-package-link" id="destinationPackageLink" href="#packages">Get Package Details</a>
-<a class="btn btn-outline" href="#packages">Explore More Tours</a>
-</div>
-</div>
-<div class="destination-index reveal" hidden>
-<span class="destination-index-label">Selected journeys</span>
-<div aria-label="Choose a destination" class="destination-nav" id="destinationNav"></div>
+<a class="btn btn-gold" href="#contact">Get Free Quote</a>
+<a class="btn btn-white" href="#packages">View Tour Packages</a>
+<button class="btn btn-outline" data-mode="haj" type="button">Umrah &amp; Haj Packages</button>
 </div>
 </div>
 <div class="quick-card reveal">
@@ -97,6 +88,7 @@
 </select>
 <input id="quickTravellers" placeholder="No. of Travellers"/>
 <a class="btn btn-gold quick-trip-link" id="quickTripBtn" href="https://wa.me/919405893383?text=Hello%20Design%20Tours%20and%20Travels%2C%0AI%20want%20package%20details%20for%20a%20customised%20trip.%0A%0ADestination%3A%20%0ATravel%20type%3A%20%0ANo.%20of%20travellers%3A%20%0APreferred%20travel%20month%3A%20%0ADeparture%20city%3A%20%0ABudget%20range%3A%20%0A%0APlease%20share%20package%20options%20and%20contact-for-price%20details." target="_blank" rel="noopener">Get Package Details</a>
+</div>
 </div>
 </div>
 </section>
